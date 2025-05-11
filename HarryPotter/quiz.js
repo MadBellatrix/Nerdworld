@@ -10,93 +10,99 @@ const questions = [
 
 let currentQuestion = 0;
 let score = 0;
+let allowClick = true;
 const optionBoxes = [];
-let restartButton = null;
+
+drawQuestion();
+canvas.addEventListener("click", handleClick);
 
 function drawQuestion() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const q = questions[currentQuestion];
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const q = questions[currentQuestion];
 
-  ctx.font = "28px Arial";
-  ctx.fillStyle = "black";
-  ctx.fillText(`Frage ${currentQuestion + 1}: ${q.question}`, 50, 80);
-
-  optionBoxes.length = 0;
-  q.options.forEach((opt, i) => {
-    const x = 50;
-    const y = 150 + i * 70;
-    const width = 700;
-    const height = 50;
-    ctx.fillStyle = "#f0f0f0";
-    ctx.fillRect(x, y, width, height);
+    ctx.font = "28px Arial";
     ctx.fillStyle = "black";
-    ctx.font = "22px Arial";
-    ctx.fillText(opt, x + 20, y + 32);
-    optionBoxes.push({ x, y, width, height, index: i });
-  });
-}
+    ctx.fillText(`Frage ${currentQuestion + 1}: ${q.question}`, 50, 80);
 
-function showResult() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "black";
-  ctx.font = "30px Arial";
-  ctx.fillText("Quiz beendet!", 50, 100);
-  ctx.fillText(`Du hast ${score} von ${questions.length} Punkten erreicht.`, 50, 160);
+    optionBoxes.length = 0;
 
-  const x = 50;
-  const y = 250;
-  const width = 300;
-  const height = 50;
-  ctx.fillStyle = "#ccc";
-  ctx.fillRect(x, y, width, height);
-  ctx.fillStyle = "black";
-  ctx.font = "24px Arial";
-  ctx.fillText("Quiz neu starten", x + 20, y + 32);
-  restartButton = { x, y, width, height };
-}
+    q.options.forEach((opt, i) => {
+        const x = 50;
+        const y = 150 + i * 70;
+        const width = 700;
+        const height = 50;
 
-function restartQuiz() {
-  currentQuestion = 0;
-  score = 0;
-  restartButton = null;
-  drawQuestion();
-}
+        ctx.fillStyle = "#f0f0f0";
+        ctx.fillRect(x, y, width, height);
 
-function nextQuestion() {
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
-    drawQuestion();
-  } else {
-    showResult();
-  }
+        ctx.fillStyle = "black";
+        ctx.font = "22px Arial";
+        ctx.fillText(opt, x + 20, y + 32);
+
+        optionBoxes.push({ x, y, width, height, index: i });
+    });
 }
 
 function handleClick(e) {
-  const rect = canvas.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
+    if (!allowClick) return;
 
-  if (restartButton && x >= restartButton.x && x <= restartButton.x + restartButton.width && y >= restartButton.y && y <= restartButton.y + restartButton.height) {
-    restartQuiz();
-    return;
-  }
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-  for (let i = 0; i < optionBoxes.length; i++) {
-    const box = optionBoxes[i];
-    if (x >= box.x && x <= box.x + box.width && y >= box.y && y <= box.y + box.height) {
-      const isCorrect = box.index === questions[currentQuestion].correct;
-      if (isCorrect) {
-        score++;
-      }
-      ctx.fillStyle = isCorrect ? "green" : "red";
-      ctx.fillText(isCorrect ? "Richtig!" : "Falsch!", 50, 450);
-      setTimeout(() => {
-        nextQuestion();
-      }, 1000);
-      break;
+    for (let i = 0; i < optionBoxes.length; i++) {
+        const box = optionBoxes[i];
+        if (x >= box.x && x <= box.x + box.width && y >= box.y && y <= box.y + box.height) {
+            const isCorrect = box.index === questions[currentQuestion].correct;
+            if (isCorrect) score++;
+
+            allowClick = false;
+            highlightAnswers(isCorrect, box.index);
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    allowClick = true;
+                    drawQuestion();
+                } else {
+                    showResult();
+                }
+            }, 1000);
+            break;
+        }
     }
-  }
 }
 
-canvas.addEventListener("click", handleClick);
-drawQuestion();
+function highlightAnswers(isCorrect, selectedIndex) {
+    const q = questions[currentQuestion];
+
+    optionBoxes.forEach((box, i) => {
+        if (i === q.correct) {
+            ctx.fillStyle = "#b6f7b0";
+        } else if (i === selectedIndex) {
+            ctx.fillStyle = isCorrect ? "#b6f7b0" : "#f7b0b0";
+        } else {
+            ctx.fillStyle = "#f0f0f0";
+        }
+        ctx.fillRect(box.x, box.y, box.width, box.height);
+
+        ctx.fillStyle = "black";
+        ctx.font = "22px Arial";
+        ctx.fillText(q.options[i], box.x + 20, box.y + 32);
+    });
+}
+
+function showResult() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "black";
+    ctx.font = "30px Arial";
+    ctx.fillText("Quiz beendet!", 50, 100);
+    ctx.fillText(`Du hast ${score} von ${questions.length} Punkten erreicht.`, 50, 160);
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    allowClick = true;
+    drawQuestion();
+}

@@ -14,3 +14,32 @@ let restartButton = null;
 let feedback = null;
 let feedbackTimer = null;
 const optionBoxes = [];
+
+function drawQuestion() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const q = questions[currentQuestion];
+  
+    ctx.font = "28px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText(`Frage ${currentQuestion + 1}: ${q.question}`, 50, 80);
+  
+    optionBoxes.length = 0;
+  
+    q.options.forEach((opt, i) => {
+      const x = 50;
+      const y = 150 + i * 70;
+      const width = 700;
+      const height = 50;
+  
+      ctx.fillStyle = "#f0f0f0";
+      ctx.fillRect(x, y, width, height);
+  
+      ctx.fillStyle = "black";
+      ctx.font = "22px Arial";
+      ctx.fillText(opt, x + 20, y + 32);
+  
+      optionBoxes.push({ x, y, width, height, index: i });
+    });
+  }
+
+  drawQuestion();

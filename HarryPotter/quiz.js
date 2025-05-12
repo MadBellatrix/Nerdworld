@@ -5,7 +5,7 @@ const questions = [
     {question: "Wie heißt Harry Potters Eule?", options: ["Hedwig", "Errol", "Fawkes", "Buckbeak"], correct: 0},
     {question: "Was ist der Name von Harry Potters Onkel?", options: ["Vernon", "Dudley", "Harry", "Arthur"], correct: 0},
     {question: "Welches Haus wird Harry zugeteilt?", options: ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"], correct: 0},
-    /*{question: "Wie heißt der Lehrer für Zaubertränke in Harrys erstem Jahr?", options: ["Snape", "McGonagall", "Flitwick", "Dumbledore"], correct: 0},
+    {question: "Wie heißt der Lehrer für Zaubertränke in Harrys erstem Jahr?", options: ["Snape", "McGonagall", "Flitwick", "Dumbledore"], correct: 0},
     {question: "Welches Tier ist Hermines Haustier?", options: ["Katze", "Eule", "Ratte", "Hund"], correct: 0},
     {question: "Wer ist der beste Freund von Harry Potter?", options: ["Ron Weasley", "Neville Longbottom", "Draco Malfoy", "Cedric Diggory"], correct: 0},
     {question: "Wer ist der Schulleiter von Hogwarts zu Beginn der Reihe?", options: ["Dumbledore", "Snape", "Flitwick", "McGonagall"], correct: 0},
@@ -21,7 +21,7 @@ const questions = [
     {question: "Was war das Geschenk von Sirius Black für Harry zu Weihnachten im ersten Jahr?", options: ["Elder Wand", "Fliegender Besen", "Magisches Buch", "Tarnumhang"], correct: 3},
     {question: "Wie lautet der vollständige Name von Tom Riddle?", options: ["Tom Marvolo Riddle", "Thomas Riddle", "Tom Marvolo Malfoy", "Tom Alexander Riddle"], correct: 0},
     {question: "Was ist der wahre Name von Nagini, der Schlange von Voldemort?", options: ["Nagini", "Katrina", "Lavinia", "Patricia"], correct: 2},
-    {question: "Wie viele Horcruxe hat Voldemort erschaffen?", options: ["6", "7", "8", "9"], correct: 1} */
+    {question: "Wie viele Horcruxe hat Voldemort erschaffen?", options: ["6", "7", "8", "9"], correct: 1}
   ];
 
 let currentQuestion = 0;

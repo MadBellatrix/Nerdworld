@@ -2,10 +2,32 @@ const canvas = document.getElementById("quizCanvas");
 const ctx = canvas.getContext("2d");
 
 const questions = [
-    {question: "Wie heißt die Schule, die Harry Potter besucht?", options: ["Beauxbatons", "Durmstrang", "Hogwarts", "Ilvermorny"], correct: 2},
-    {question: "Wie lautet Harry Potters vollständiger Name?", options: ["Harry Sirius Potter", "Harry James Potter", "Harry Albus Potter", "Harry Remus Potter"], correct: 1},
-    {question: "Welches Haus wird Harry zugeteilt?", options: ["Hufflepuff", "Ravenclaw", "Gryffindor", "Slytherin"], correct: 2},
-    {question: "Wer ist der Schulleiter in Harrys erstem Schuljahr?", options: ["Snape", "Dumbledore", "McGonagall", "Flitwick"], correct: 1}
+  
+        {question: "Wie heißt Harry Potters Eule?", options: ["Hedwig", "Errol", "Fawkes", "Buckbeak"], correct: 0},
+        {question: "Was ist der Name von Harry Potters Onkel?", options: ["Vernon", "Dudley", "Harry", "Arthur"], correct: 0},
+        {question: "Welches Haus wird Harry zugeteilt?", options: ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"], correct: 0},
+        {question: "Wie heißt der Lehrer für Zaubertränke in Harrys erstem Jahr?", options: ["Snape", "McGonagall", "Flitwick", "Dumbledore"], correct: 0},
+        {question: "Welches Tier ist Hermines Haustier?", options: ["Katze", "Eule", "Ratte", "Hund"], correct: 0},
+        {question: "Wer ist der beste Freund von Harry Potter?", options: ["Ron Weasley", "Neville Longbottom", "Draco Malfoy", "Cedric Diggory"], correct: 0},
+        {question: "Wer ist der Schulleiter von Hogwarts zu Beginn der Reihe?", options: ["Dumbledore", "Snape", "Flitwick", "McGonagall"], correct: 0},
+        {question: "Wie heißt das Zauberbuch, das Harry in seiner ersten Klasse bekommt?", options: ["Zaubersprüche für Anfänger", "Die magische Welt", "Zauberschule in London", "Zaubertränke für Anfänger"], correct: 0},
+        {question: "Welcher Lehrer unterrichtet Zaubertränke?", options: ["Snape", "Flitwick", "McGonagall", "Sprout"], correct: 0},
+        {question: "Was ist das Schutzschild, das Harry von Dumbledore erhält?", options: ["Elder Wand", "Phoenix Feather", "Fawkes", "Invisibility Cloak"], correct: 3},
+        
+        {question: "Was ist der Name von Harry Potters Mutter?", options: ["Lily Potter", "Molly Weasley", "Tonks", "Bellatrix Lestrange"], correct: 0},
+        {question: "Wer ist der erste Mensch, der im Zaubereiministerium stirbt?", options: ["Cedric Diggory", "Fudge", "Sirius Black", "Emmeline Vance"], correct: 2},
+        {question: "Wie heißt der Zauber, mit dem man die unsichtbaren Dementoren vertreibt?", options: ["Expecto Patronum", "Avada Kedavra", "Expelliarmus", "Lumos"], correct: 0},
+        {question: "Welches Tier ist der Patronus von Harry Potter?", options: ["Hirsch", "Wolf", "Hund", "Pferd"], correct: 0},
+        {question: "Welcher Charakter verwandelt sich in eine Animagus?", options: ["Sirius Black", "Peter Pettigrew", "James Potter", "Alle oben genannten"], correct: 3},
+        
+        {question: "Wer ist der wahre Besitzer von 'Der Elderstab'?", options: ["Dumbledore", "Harry Potter", "Draco Malfoy", "Voldemort"], correct: 1},
+        {question: "Was war das Geschenk von Sirius Black für Harry zu Weihnachten im ersten Jahr?", options: ["Elder Wand", "Fliegender Besen", "Magisches Buch", "Tarnumhang"], correct: 3},
+        
+        {question: "Wie lautet der vollständige Name von Tom Riddle?", options: ["Tom Marvolo Riddle", "Thomas Riddle", "Tom Marvolo Malfoy", "Tom Alexander Riddle"], correct: 0},
+        {question: "Was ist der wahre Name von Nagini, der Schlange von Voldemort?", options: ["Nagini", "Katrina", "Lavinia", "Patricia"], correct: 2},
+        {question: "Wie viele Horcruxe hat Voldemort erschaffen?", options: ["6", "7", "8", "9"], correct: 1}
+      
+      
 ];
 
 let currentQuestion = 0;

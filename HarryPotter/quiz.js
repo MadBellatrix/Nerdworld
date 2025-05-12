@@ -23,9 +23,12 @@ const questions = [
     {question: "Was ist der wahre Name von Nagini, der Schlange von Voldemort?", options: ["Nagini", "Katrina", "Lavinia", "Patricia"], correct: 2},
     {question: "Wie viele Horcruxe hat Voldemort erschaffen?", options: ["6", "7", "8", "9"], correct: 1} */
   ];
+
 let currentQuestion = 0;
 let score = 0;
 let optionBoxes = [];
+let resetButton = null;
+let backButton = null;
 
 function wrapText(text, x, y, maxWidth, lineHeight) {
   const words = text.split(' ');
@@ -131,6 +134,25 @@ function showResult() {
   }
 
   ctx.fillText(resultText, 50, 220);
+
+  showResetButton();
+}
+
+function showResetButton() {
+  if (resetButton) {
+    resetButton.style.display = "block";
+  }
+}
+
+function resetQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  drawQuestion();
+  resetButton.style.display = "none";
+}
+
+function goToStartPage() {
+  window.location.href = '/'; 
 }
 
 function setupPage() {
@@ -162,27 +184,46 @@ function setupPage() {
   canvas.style.background = "white";
   quizContainer.appendChild(canvas);
 
-  const startPageButton = document.createElement('button');
-  startPageButton.onclick = () => {
-    window.location.href = "/index.html"
-  }
-  startPageButton.textContent = "Zur Startseite";
-  startPageButton.style.marginTop = "20px";
-  startPageButton.style.padding = "10px 20px";
-  startPageButton.style.fontSize = "16px";
-  startPageButton.style.backgroundColor = "#4CAF50";
-  startPageButton.style.color = "white";
-  startPageButton.style.border = "none";
-  startPageButton.style.borderRadius = "8px";
-  startPageButton.style.cursor = "pointer";
-  startPageButton.style.transition = "background-color 0.3s ease";
-  startPageButton.onmouseover = () => {
-    startPageButton.style.backgroundColor = "#45a049";
+  backButton = document.createElement('button');
+  backButton.textContent = "Zurück zur Startseite";
+  backButton.style.position = "absolute";
+  backButton.style.top = "20px";
+  backButton.style.left = "20px";
+  backButton.style.padding = "10px 20px";
+  backButton.style.fontSize = "16px";
+  backButton.style.backgroundColor = "#4CAF50";
+  backButton.style.color = "white";
+  backButton.style.border = "none";
+  backButton.style.borderRadius = "8px";
+  backButton.style.cursor = "pointer";
+  backButton.style.transition = "background-color 0.3s ease";
+  backButton.onclick = goToStartPage;
+
+  document.body.appendChild(backButton);
+
+  resetButton = document.createElement('button');
+  resetButton.textContent = "Quiz Zurücksetzen";
+  resetButton.style.marginTop = "20px";
+  resetButton.style.padding = "10px 20px";
+  resetButton.style.fontSize = "16px";
+  resetButton.style.backgroundColor = "#4CAF50";
+  resetButton.style.color = "white";
+  resetButton.style.border = "none";
+  resetButton.style.borderRadius = "8px";
+  resetButton.style.cursor = "pointer";
+  resetButton.style.transition = "background-color 0.3s ease";
+  resetButton.style.display = "none";
+
+  resetButton.onmouseover = () => {
+    resetButton.style.backgroundColor = "#45a049";
   };
-  startPageButton.onmouseout = () => {
-    startPageButton.style.backgroundColor = "#4CAF50";
+  resetButton.onmouseout = () => {
+    resetButton.style.backgroundColor = "#4CAF50";
   };
-  quizContainer.appendChild(startPageButton);
+
+  resetButton.onclick = resetQuiz;
+
+  quizContainer.appendChild(resetButton);
 }
 
 setupPage();
